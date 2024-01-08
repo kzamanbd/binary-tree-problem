@@ -16,36 +16,19 @@ public:
     }
 };
 
-vector<int> getLevelOrder(TreeNode *root, int lvl)
+void leafNodes(TreeNode *root, vector<int> &nodes)
 {
-    queue<pair<TreeNode *, int>> q;
-    vector<int> res;
-    q.push({root, 0});
-
-    while (!q.empty())
+    if (root == NULL)
     {
-        auto it = q.front();
-        q.pop();
-
-        TreeNode *node = it.first;
-        int level = it.second;
-
-        if (level == lvl)
-        {
-            res.push_back(node->val);
-        }
-
-        if (node->left)
-        {
-            q.push({node->left, level + 1});
-        }
-        if (node->right)
-        {
-            q.push({node->right, level + 1});
-        }
+        return;
+    }
+    if (root->left == NULL && root->right == NULL)
+    {
+        nodes.push_back(root->val);
     }
 
-    return res;
+    leafNodes(root->left, nodes);
+    leafNodes(root->right, nodes);
 }
 
 TreeNode *inputTreeLevelOrder()
@@ -90,19 +73,12 @@ TreeNode *inputTreeLevelOrder()
 int main()
 {
     TreeNode *root = inputTreeLevelOrder();
-    int level;
-    cin >> level;
-    vector<int> nodes = getLevelOrder(root, level);
-    if (nodes.size() == 0)
+    vector<int> nodes;
+    leafNodes(root, nodes);
+    sort(nodes.begin(), nodes.end(), greater<int>());
+    for (int val : nodes)
     {
-        cout << "Invalid";
-    }
-    else
-    {
-        for (int val : nodes)
-        {
-            cout << val << " ";
-        }
+        cout << val << " ";
     }
 
     return 0;

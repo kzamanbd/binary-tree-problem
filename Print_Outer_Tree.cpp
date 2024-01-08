@@ -16,38 +16,6 @@ public:
     }
 };
 
-vector<int> getLevelOrder(TreeNode *root, int lvl)
-{
-    queue<pair<TreeNode *, int>> q;
-    vector<int> res;
-    q.push({root, 0});
-
-    while (!q.empty())
-    {
-        auto it = q.front();
-        q.pop();
-
-        TreeNode *node = it.first;
-        int level = it.second;
-
-        if (level == lvl)
-        {
-            res.push_back(node->val);
-        }
-
-        if (node->left)
-        {
-            q.push({node->left, level + 1});
-        }
-        if (node->right)
-        {
-            q.push({node->right, level + 1});
-        }
-    }
-
-    return res;
-}
-
 TreeNode *inputTreeLevelOrder()
 {
     int n;
@@ -87,22 +55,59 @@ TreeNode *inputTreeLevelOrder()
     return root;
 }
 
+void getLeftMostNode(TreeNode *root, vector<int> &left)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+    left.push_back(root->val);
+    if (root->left)
+    {
+        getLeftMostNode(root->left, left);
+    }
+    else if (root->right)
+    {
+        getLeftMostNode(root->right, left);
+    }
+}
+void getRightMostNode(TreeNode *root, vector<int> &right)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+    right.push_back(root->val);
+
+    if (root->right)
+    {
+        getRightMostNode(root->right, right);
+    }
+    else if (root->left)
+    {
+        getRightMostNode(root->left, right);
+    }
+}
+
 int main()
 {
     TreeNode *root = inputTreeLevelOrder();
-    int level;
-    cin >> level;
-    vector<int> nodes = getLevelOrder(root, level);
-    if (nodes.size() == 0)
+
+    vector<int> left, right;
+    getLeftMostNode(root->left, left);
+    getRightMostNode(root->right, right);
+
+    reverse(left.begin(), left.end());
+
+    for (int val : left)
     {
-        cout << "Invalid";
+        cout << val << " ";
     }
-    else
+    cout << root->val << " ";
+
+    for (int val : right)
     {
-        for (int val : nodes)
-        {
-            cout << val << " ";
-        }
+        cout << val << " ";
     }
 
     return 0;
