@@ -57,7 +57,33 @@ TreeNode *inputTreeLevelOrder()
 
 void insertNode(TreeNode *&root, int val)
 {
-    
+    if (root == NULL)
+    {
+        root = new TreeNode(val);
+        return;
+    }
+    if (root->val > val)
+    {
+        if (!root->left)
+        {
+            root->left = new TreeNode(val);
+        }
+        else
+        {
+            insertNode(root->left, val);
+        }
+    }
+    else
+    {
+        if (!root->right)
+        {
+            root->right = new TreeNode(val);
+        }
+        else
+        {
+            insertNode(root->right, val);
+        }
+    }
 }
 
 void levelOrderPrint(TreeNode *root)
@@ -88,11 +114,10 @@ void levelOrderPrint(TreeNode *root)
 
 int main()
 {
-
-    int n;
-    cin >> n;
     TreeNode *root = inputTreeLevelOrder();
+    int val;
+    cin >> val;
+    insertNode(root, val);
     levelOrderPrint(root);
-
     return 0;
 }
