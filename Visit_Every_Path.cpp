@@ -4,32 +4,37 @@ using namespace std;
 
 class TreeNode {
 public:
-    int value;
+    int val;
     TreeNode* left;
     TreeNode* right;
 
-    TreeNode(int val) : value(val), left(NULL), right(NULL) {}
+    TreeNode(int val) {
+        this->val = val;
+        this->left = NULL;
+        this->right = NULL;
+    }
 };
 
-void traversePaths(TreeNode* root, vector<int>& currentPath, vector<vector<int>>& allPaths) {
+
+void traversePaths(TreeNode* root, vector<int>& path, vector<vector<int>>& paths) {
     if (root == NULL) {
         return;
     }
 
     // Add the current node to the path
-    currentPath.push_back(root->value);
+    path.push_back(root->val);
 
     // If the current node is a leaf node, add the path to the result
     if (root->left == NULL && root->right == NULL) {
-        allPaths.push_back(currentPath);
+        paths.push_back(path);
     }
 
     // Recursively traverse the left and right subtrees
-    traversePaths(root->left, currentPath, allPaths);
-    traversePaths(root->right, currentPath, allPaths);
+    traversePaths(root->left, path, paths);
+    traversePaths(root->right, path, paths);
 
     // Remove the current node from the path (backtrack)
-    currentPath.pop_back();
+    path.pop_back();
 }
 
 int main() {
@@ -39,6 +44,7 @@ int main() {
     //      2   3
     //     / \
     //    4   5
+
     TreeNode* root = new TreeNode(1);
     root->left = new TreeNode(2);
     root->right = new TreeNode(3);
@@ -51,9 +57,9 @@ int main() {
     traversePaths(root, currentPath, paths);
 
     // Print the result
-    for (const auto& path : paths) {
-        for (int nodeValue : path) {
-            cout << nodeValue << " ";
+    for (auto path : paths) {
+        for (int val : path) {
+            cout << val << " ";
         }
         cout << "\n";
     }
