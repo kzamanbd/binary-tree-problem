@@ -15,7 +15,6 @@ public:
     }
 };
 
-
 void traversePaths(TreeNode* root, vector<int>& path, vector<vector<int>>& paths) {
     if (root == NULL) {
         return;
@@ -63,13 +62,6 @@ int main() {
         }
         cout << "\n";
     }
-
-    // Clean up memory (optional)
-    delete root->left->left;
-    delete root->left->right;
-    delete root->left;
-    delete root->right;
-    delete root;
 
     return 0;
 }
