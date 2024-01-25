@@ -1,0 +1,1 @@
+{"name":"Local: Input_Array_To_BST","url":"d:\\Programming\\binary-tree-problem\\Input_Array_To_BST.cpp","tests":[{"id":1706001287276,"input":"15\n25 75 -21 3 14 7 91 47 9 -3 71 29 25 15 21","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\Programming\\binary-tree-problem\\Input_Array_To_BST.cpp","group":"local","local":true}
