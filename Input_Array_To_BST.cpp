@@ -87,14 +87,19 @@ int main() {
         cin >> arr[i];
     }
     sort(arr.begin(), arr.end());
+    cout << "Array: ";
+    for (auto val : arr) {
+        cout << val << " ";
+    }
+    cout << endl;
     TreeNode* root = convertBST(arr, 0, n - 1);
-    cout << "level Order: ";
+    cout << "Level Order: ";
     levelOrderPrint(root);
-    cout << endl << "preorder: ";
+    cout << endl << "Preorder: ";
     preorder(root);
-    cout << endl << "postorder: ";
+    cout << endl << "Postorder: ";
     postorder(root);
-    cout << endl << "inOrder: ";
+    cout << endl << "In order: ";
     inOrder(root);
 
     return 0;
